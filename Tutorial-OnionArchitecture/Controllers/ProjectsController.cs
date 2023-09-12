@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Contracts;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tutorial_OnionArchitecture.Controllers
@@ -8,8 +9,9 @@ namespace Tutorial_OnionArchitecture.Controllers
     public class ProjectsController : ControllerBase
     {
         private List<Project> _projectList;
-        private ILogger<ProjectsController> _logger;    
-        public ProjectsController(ILogger<ProjectsController> logger)
+        private ILoggerManager _loggerManager;
+
+        public ProjectsController(ILoggerManager loggerManager)
         {
             _projectList = new List<Project>
             {
@@ -17,7 +19,7 @@ namespace Tutorial_OnionArchitecture.Controllers
                 new Project{Id = Guid.NewGuid() , Name = "Project 2"},
                 new Project{Id = Guid.NewGuid() , Name = "Project 3"}
             };
-            _logger = logger;
+            _loggerManager = loggerManager;
         }
 
         [HttpGet]
@@ -27,14 +29,14 @@ namespace Tutorial_OnionArchitecture.Controllers
             {
                 int a = 10;
                 int b = 0;
-                int c = a / b;  
+                int c = a / b;
 
-                _logger.LogInformation("Project.Get() has been run.");
+                _loggerManager.LogInfo("Project.Get() has been run.");
                 return Ok(_projectList);
             }
             catch (Exception ex)
             {
-                _logger.LogError("Project.Get() has been crashed"+ ex.Message);
+                _loggerManager.LogError("Project.Get() has been crashed"+ ex.Message);
                 throw;
             }
           

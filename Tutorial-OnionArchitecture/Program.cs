@@ -1,3 +1,6 @@
+using Contracts;
+using LoggerService;
+using NLog;
 using Tutorial_OnionArchitecture.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureCors();
+
+LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
+builder.Services.AddSingleton<ILoggerManager,LoggerManager>();   
 
 var app = builder.Build();
 
