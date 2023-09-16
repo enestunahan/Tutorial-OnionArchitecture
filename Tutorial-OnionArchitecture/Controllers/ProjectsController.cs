@@ -2,6 +2,7 @@
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
+using Service.Contracts;
 
 namespace Tutorial_OnionArchitecture.Controllers
 {
@@ -9,37 +10,19 @@ namespace Tutorial_OnionArchitecture.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private List<Project> _projectList;
-        private ILoggerManager _loggerManager;
-        private readonly IRepositoryManager _repositoryManager;
 
-        public ProjectsController(ILoggerManager loggerManager, IRepositoryManager repositoryManager )
+        private readonly IServiceManager _serviceManager;
+
+        public ProjectsController( IServiceManager serviceManager)
         {
-            _projectList = new List<Project>
-            {
-                new Project{Id = Guid.NewGuid() , Name = "Project 1"},
-                new Project{Id = Guid.NewGuid() , Name = "Project 2"},
-                new Project{Id = Guid.NewGuid() , Name = "Project 3"}
-            };
-            _loggerManager = loggerManager;
-            _repositoryManager = repositoryManager;
+            _serviceManager= serviceManager;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            try
-            {
-                _loggerManager.LogInfo("Project.Get() has been run.");
-                var projectList = _repositoryManager.Project.GetAllProjects(false);
-                return Ok(projectList);
-            }
-            catch (Exception ex)
-            {
-                _loggerManager.LogError("Project.Get() has been crashed"+ ex.Message);
-                throw;
-            }
-          
+            var list = _serviceManager.ProjectService.GetAllProjects(false);
+            return Ok(list);
         }
     }
 }

@@ -3,6 +3,8 @@ using LoggerService;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using Repository;
+using Service;
+using Service.Contracts;
 using Tutorial_OnionArchitecture.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,7 @@ LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nl
 
 builder.Services.AddSingleton<ILoggerManager,LoggerManager>();
 builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
+builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 var app = builder.Build();
 
