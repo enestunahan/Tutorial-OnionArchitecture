@@ -24,12 +24,10 @@ namespace Tutorial_OnionArchitecture.Migrations
 
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("EmployeeId");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
@@ -53,6 +51,17 @@ namespace Tutorial_OnionArchitecture.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c58eb020-671c-436f-a303-33bf35e58b00"),
+                            Age = 30,
+                            FirstName = "Ahmet",
+                            LastName = "Yıldırım",
+                            Position = "Senior Developer",
+                            ProjectId = new Guid("58f88377-d2b9-4aa0-bcd0-0ea0f46f4476")
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Project", b =>
@@ -82,6 +91,16 @@ namespace Tutorial_OnionArchitecture.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("58f88377-d2b9-4aa0-bcd0-0ea0f46f4476"),
+                            Description = "Web Application Programming Interface",
+                            Field = "Computer Science",
+                            ImageUrl = "",
+                            Name = "ASP.NET Core Web Api Project"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Employee", b =>

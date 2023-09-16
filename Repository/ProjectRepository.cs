@@ -5,7 +5,7 @@ namespace Repository
 {
     public class ProjectRepository : RepositoryBase<Project>, IProjectRepository
     {
-        protected ProjectRepository(RepositoryContext context) : base(context)
+        public ProjectRepository(RepositoryContext context) : base(context)
         {
         }
 

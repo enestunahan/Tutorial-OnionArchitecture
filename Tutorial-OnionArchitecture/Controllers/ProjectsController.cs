@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Repository;
 
 namespace Tutorial_OnionArchitecture.Controllers
 {
@@ -10,8 +11,9 @@ namespace Tutorial_OnionArchitecture.Controllers
     {
         private List<Project> _projectList;
         private ILoggerManager _loggerManager;
+        private readonly IRepositoryManager _repositoryManager;
 
-        public ProjectsController(ILoggerManager loggerManager)
+        public ProjectsController(ILoggerManager loggerManager, IRepositoryManager repositoryManager )
         {
             _projectList = new List<Project>
             {
@@ -20,6 +22,7 @@ namespace Tutorial_OnionArchitecture.Controllers
                 new Project{Id = Guid.NewGuid() , Name = "Project 3"}
             };
             _loggerManager = loggerManager;
+            _repositoryManager = repositoryManager;
         }
 
         [HttpGet]
@@ -27,12 +30,9 @@ namespace Tutorial_OnionArchitecture.Controllers
         {
             try
             {
-                int a = 10;
-                int b = 0;
-                int c = a / b;
-
                 _loggerManager.LogInfo("Project.Get() has been run.");
-                return Ok(_projectList);
+                var projectList = _repositoryManager.Project.GetAllProjects(false);
+                return Ok(projectList);
             }
             catch (Exception ex)
             {

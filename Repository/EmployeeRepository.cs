@@ -5,7 +5,7 @@ namespace Repository
 {
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
-        protected EmployeeRepository(RepositoryContext context) : base(context)
+        public EmployeeRepository(RepositoryContext context) : base(context)
         {
         }
 

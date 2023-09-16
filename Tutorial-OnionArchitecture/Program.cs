@@ -20,7 +20,8 @@ builder.Services.ConfigureSqlDbContext(builder.Configuration);
 
 LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
-builder.Services.AddSingleton<ILoggerManager,LoggerManager>();   
+builder.Services.AddSingleton<ILoggerManager,LoggerManager>();
+builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
 
 var app = builder.Build();
 
