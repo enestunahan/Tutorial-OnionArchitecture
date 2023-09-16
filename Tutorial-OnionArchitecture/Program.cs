@@ -1,6 +1,8 @@
 using Contracts;
 using LoggerService;
+using Microsoft.EntityFrameworkCore;
 using NLog;
+using Repository;
 using Tutorial_OnionArchitecture.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureCors();
+
+builder.Services.ConfigureSqlDbContext(builder.Configuration);
 
 LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
