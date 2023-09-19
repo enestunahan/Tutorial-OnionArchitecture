@@ -5,11 +5,11 @@ namespace Service
 {
     public class ServiceManager : IServiceManager
     {
-        private readonly IProjectService _projectService;
+        private readonly Lazy<IProjectService> _projectService;
         public ServiceManager(IRepositoryManager repositoryManager , ILoggerManager loggerManager)
         {
-            _projectService = new ProjectService(repositoryManager, loggerManager);
+            _projectService = new Lazy<IProjectService>( () =>  new ProjectService(repositoryManager, loggerManager));
         }
-        public IProjectService ProjectService => _projectService;
+        public IProjectService ProjectService => _projectService.Value;
     }
 }
