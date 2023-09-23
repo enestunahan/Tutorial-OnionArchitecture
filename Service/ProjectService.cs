@@ -17,8 +17,17 @@ namespace Service
 
         public IEnumerable<Project> GetAllProjects(bool trackChanges)
         {
-           var projects =  _repositoryManager.Project.GetAllProjects(trackChanges);
-            return projects;
+            try
+            {
+                var projects = _repositoryManager.Project.GetAllProjects(trackChanges);
+                return projects;
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError("ProjectService.GetAllProjects() has an error" + ex.Message);
+                throw;
+            }
+        
         }
     }
 }

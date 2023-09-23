@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,6 +25,10 @@ LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nl
 builder.Services.AddSingleton<ILoggerManager,LoggerManager>();
 builder.Services.AddScoped<IRepositoryManager,RepositoryManager>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
+
+//Bende bu uygulamanýn bir parçasýyým anlamýna geliyor
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(Tutorial_OnionArchitecture.Presentation.AssemblyReference).Assembly);
 
 var app = builder.Build();
 
