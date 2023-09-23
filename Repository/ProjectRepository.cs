@@ -19,7 +19,7 @@ namespace Repository
             .ToList();
 
 
-        public Project GetProject(int id, bool trackChanges) =>
+        public Project GetProject(Guid id, bool trackChanges) =>
             FindByCondition(p => p.Id.Equals(id), trackChanges)
             .SingleOrDefault();
     }

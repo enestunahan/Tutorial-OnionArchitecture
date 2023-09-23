@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Models;
+using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 
 namespace Tutorial_OnionArchitecture.Presentation.Controllers
@@ -25,6 +26,21 @@ namespace Tutorial_OnionArchitecture.Presentation.Controllers
             {
                 return StatusCode(500, "Internal Server Error");
             }         
+        }
+
+        [HttpGet("{id:guid}")]
+        public IActionResult GetProjectById(Guid id)
+        {
+            try
+            {
+                Project project = _serviceManager.ProjectService.GetProjectById(id);
+                return Ok(project);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+            
         }
     }
 }

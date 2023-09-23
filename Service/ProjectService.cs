@@ -29,5 +29,19 @@ namespace Service
             }
         
         }
+
+        public Project GetProjectById(Guid id)
+        {
+            try
+            {
+                var project = _repositoryManager.Project.GetProject(id, false);
+                return project;
+            }
+            catch (Exception ex)
+            {
+                _loggerManager.LogError("ProjectService.GetProjectById() has an error" + ex.Message);
+                throw;
+            }
+        }
     }
 }
