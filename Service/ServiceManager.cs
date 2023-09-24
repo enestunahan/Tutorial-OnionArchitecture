@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Contracts;
 using Service.Contracts;
 
 namespace Service
@@ -7,10 +8,10 @@ namespace Service
     {
         private readonly Lazy<IProjectService> _projectService;
         private readonly Lazy<IEmployeeService> _employeeService;
-        public ServiceManager(IRepositoryManager repositoryManager , ILoggerManager loggerManager)
+        public ServiceManager(IRepositoryManager repositoryManager , ILoggerManager loggerManager , IMapper mapper)
         {
-            _projectService = new Lazy<IProjectService>(()  =>  new ProjectService(repositoryManager, loggerManager));
-            _employeeService = new Lazy<IEmployeeService>(() =>  new EmployeeService(repositoryManager, loggerManager));
+            _projectService = new Lazy<IProjectService>(()  =>  new ProjectService(repositoryManager, loggerManager,mapper));
+            _employeeService = new Lazy<IEmployeeService>(() =>  new EmployeeService(repositoryManager, loggerManager,mapper));
         }
         public IProjectService ProjectService => _projectService.Value;
 

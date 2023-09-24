@@ -1,6 +1,7 @@
-﻿using Contracts;
-using Entities.Models;
+﻿using AutoMapper;
+using Contracts;
 using Service.Contracts;
+using Shared.DataTransferObjects;
 
 namespace Service
 {
@@ -8,19 +9,22 @@ namespace Service
     {
         private readonly IRepositoryManager _repository;
         private readonly ILoggerManager _logger;
+        private readonly IMapper _mapper;
 
-        public EmployeeService(IRepositoryManager repository, ILoggerManager logger)
+        public EmployeeService(IRepositoryManager repository, ILoggerManager logger,IMapper mapper)
         {
             _repository = repository;
             _logger = logger;
+            _mapper = mapper;   
         }
 
-        public IEnumerable<Employee> GetAllEmployeesByProjectId(Guid projectId, bool trackChanges)
+        public IEnumerable<EmployeeDto> GetAllEmployeesByProjectId(Guid projectId, bool trackChanges)
         {
             try
             {
                 var employeeList = _repository.Employee.GetEmployeesByProjectId(projectId, trackChanges);
-                return employeeList;
+                var result = _mapper.Map<IEnumerable<EmployeeDto>>(employeeList);
+                return result;
             }
             catch (Exception ex)
             {
@@ -29,12 +33,13 @@ namespace Service
             }
         }
 
-        public Employee GetOneEmployeeByProjectId(Guid projectId, Guid employeeId, bool trackChanges)
+        public EmployeeDto GetOneEmployeeByProjectId(Guid projectId, Guid employeeId, bool trackChanges)
         {
             try
             {
                 var employee = _repository.Employee.GetEmployeeByProjectId(projectId, employeeId, trackChanges);
-                return employee;
+                var employeeDto = _mapper.Map<EmployeeDto>(employee);
+                return employeeDto;
             }
             catch (Exception ex)
             {

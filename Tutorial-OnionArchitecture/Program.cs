@@ -30,6 +30,8 @@ builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddControllers()
     .AddApplicationPart(typeof(Tutorial_OnionArchitecture.Presentation.AssemblyReference).Assembly);
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

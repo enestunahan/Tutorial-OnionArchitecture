@@ -33,7 +33,7 @@ namespace Tutorial_OnionArchitecture.Presentation.Controllers
         {
             try
             {
-                Project project = _serviceManager.ProjectService.GetProjectById(id);
+                var project = _serviceManager.ProjectService.GetProjectById(id);
                 return Ok(project);
             }
             catch (Exception)
