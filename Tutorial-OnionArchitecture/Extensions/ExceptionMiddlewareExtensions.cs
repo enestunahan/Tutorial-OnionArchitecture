@@ -15,7 +15,6 @@ namespace Tutorial_OnionArchitecture.Extensions
 
                 appError.Run(async context =>
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType= "application/json";
 
                     var contextFeauture = context.Features.Get<IExceptionHandlerFeature>();
