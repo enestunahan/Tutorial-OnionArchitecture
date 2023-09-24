@@ -17,7 +17,7 @@ namespace Tutorial_OnionArchitecture.Presentation.Controllers
         [HttpGet]
         public IActionResult GetAllProjects()
         {
-            throw new Exception("Exception ...");
+            //throw new Exception("Exception ...");
             var projects = _serviceManager.ProjectService.GetAllProjects(false);
             return Ok(projects);                 
         }
