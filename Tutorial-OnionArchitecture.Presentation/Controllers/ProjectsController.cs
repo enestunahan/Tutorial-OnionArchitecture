@@ -17,30 +17,16 @@ namespace Tutorial_OnionArchitecture.Presentation.Controllers
         [HttpGet]
         public IActionResult GetAllProjects()
         {
-            try
-            {
-                var projects = _serviceManager.ProjectService.GetAllProjects(false);
-                return Ok(projects);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error");
-            }         
+            throw new Exception("Exception ...");
+            var projects = _serviceManager.ProjectService.GetAllProjects(false);
+            return Ok(projects);                 
         }
 
         [HttpGet("{id:guid}")]
         public IActionResult GetProjectById(Guid id)
         {
-            try
-            {
-                var project = _serviceManager.ProjectService.GetProjectById(id);
-                return Ok(project);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal Server Error");
-            }
-            
+            var project = _serviceManager.ProjectService.GetProjectById(id);
+            return Ok(project);
         }
     }
 }
